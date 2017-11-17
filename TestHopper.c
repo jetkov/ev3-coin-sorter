@@ -1,4 +1,4 @@
-const int HOPPER_PORT = 0, HOPPER_SPEED = 45, HOPPER_REVERSE_SPEED = 75;
+const int HOPPER_PORT = 0, HOPPER_SPEED = 45, HOPPER_REVERSE_SPEED = 75, HOPPER_REVERSE_DELAY = 500;
 
 task main()
 {
@@ -13,7 +13,7 @@ task main()
 		if (nMotorEncoder[HOPPER_PORT] > -360 / HOPPER_SPEED)
 		{
 			motor[HOPPER_PORT] = HOPPER_REVERSE_SPEED;
-			delay(250);
+			delay(HOPPER_REVERSE_DELAY);
 			motor[HOPPER_PORT] = -HOPPER_SPEED;
 		}
 	}

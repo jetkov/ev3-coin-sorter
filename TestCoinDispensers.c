@@ -89,8 +89,9 @@ int getCoins(int coinType, int number)
 				bool dispensed = false;
 
 				time1[T3] = 0;
-				while(time1[T3] < DIME_DISPENSE_TIME)
+				while(time1[T3] < DIME_DISPENSE_TIME && !dispensed)
 				{
+					displayBigTextLine(0, "Refl: %d", SensorValue[CLR_SENS_PT]);
 					if (SensorValue[CLR_SENS_PT] > CLR_SENS_THRESHOLD)
 						dispensed = true;
 					delay(25);
