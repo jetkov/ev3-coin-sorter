@@ -30,10 +30,9 @@ bool coinDispensed(int time)
 	time1[T2] = 0;
 	while(time1[T2] < time)
 	{
-		//displayBigTextLine(0, "Refl: %d", SensorValue[CLR_SENS_PT]);
-		if (SensorValue[CLR_SENS_PT] > CLR_SENS_THRESHOLD)
+		if (SensorValue[CLR_SENS_PT] < CLR_SENS_THRESHOLD)
 			coinDetected = true;
-		delay(25);
+		delay(10);
 	}
 
 	return coinDetected;
@@ -47,7 +46,7 @@ const int NICKL_QRTR_SVO_PT = 1, NICKL_QRTR_OUT_POS = 11, NICKL_POS = 74, QRTR_P
 const int LNIE_TNIE_SVO_PT = 2, LNIE_TNIE_OUT_POS = 24, LNIE_POS = -46, TNIE_POS = 95;
 const int SERVO_GETCOIN_DELAY = 600; // ms
 
-const int COIN_SENSE_TIME = 1000;
+const int COIN_SENSE_TIME = 500;
 
 void homeServos()
 {
@@ -86,19 +85,20 @@ int getCoins(int coinType, int number)
 
 				nMotorEncoder[DIME_MTR_PT] = 0;
 
-			  dispensed = false;
+				bool dispensed = false;
 
 				time1[T3] = 0;
-				while(time1[T3] < DIME_DISPENSE_TIME && !dispensed)
+				while(time1[T3] < DIME_DISPENSE_TIME && dispensed == false)
 				{
-					displayBigTextLine(0, "Refl: %d", SensorValue[CLR_SENS_PT]);
-					if (SensorValue[CLR_SENS_PT] > CLR_SENS_THRESHOLD)
+					if (SensorValue[CLR_SENS_PT] < CLR_SENS_THRESHOLD)
 						dispensed = true;
-					delay(25);
+					delay(10);
 
-					if (nMotorEncoder[DIME_MTR_PT] >= 500)
+					if (nMotorEncoder[DIME_MTR_PT] > 500)
 						motor[DIME_MTR_PT] = 0;
 				}
+
+				while (nMotorEncoder[DIME_MTR_PT] < 500) {}
 
 				motor[DIME_MTR_PT] = 0;
 
@@ -152,18 +152,16 @@ int getCoins(int coinType, int number)
 		default:
 			return -1;
 			break;
-	}
 
-	return count;
+		return count;
+	}
 }
 
 
 task main()
 {
 	SensorType[CLR_SENS_PT] = sensorEV3_Color;
-	delay(50);
 	SensorMode[CLR_SENS_PT] = modeEV3Color_Reflected;
-	delay(50);
 
 	homeServos();
 
