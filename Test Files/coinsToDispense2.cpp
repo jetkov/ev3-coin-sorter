@@ -83,7 +83,7 @@ void printInfo (float change, int coins[], bool coinsAvailable[])
 
 int main ()
 {
-	float change = 3.39;
+	float change = 0.01;
 
 	int coins[5] = {0};
 	bool coinsAvailable [5] = {1, 1, 1, 1, 1};
