@@ -20,7 +20,7 @@ bool coinDispensed(int time)
 
 const int SERVO_CTRLR_PT = S1;
 
-const int DIME_MTR_PT = motorB, DIME_MTR_SPD = 10, DIME_DISPENSE_TIME = 2000;
+const int DIME_MTR_PT = motorB, DIME_MTR_SPD = 10, DIME_DISPENSE_TIME = 5000;
 
 const int NICKL_QRTR_SVO_PT = 1, NICKL_QRTR_OUT_POS = 11, NICKL_POS = 74, QRTR_POS = -53, ;
 const int LNIE_TNIE_SVO_PT = 2, LNIE_TNIE_OUT_POS = 24, LNIE_POS = -46, TNIE_POS = 95;
@@ -70,12 +70,12 @@ int getCoins(int coinType, int number)
 				time1[T3] = 0;
 				while(time1[T3] < DIME_DISPENSE_TIME && !dispensed)
 				{
-					displayBigTextLine(0, "Refl: %d", SensorValue[CLR_SENS_PT]);
+					displayBigTextLine(0, "Refl: %d Time: %d", SensorValue[CLR_SENS_PT], time1[T3] / 1000);
 					if (SensorValue[CLR_SENS_PT] > CLR_SENS_THRESHOLD)
 						dispensed = true;
 					delay(25);
 
-					if (nMotorEncoder[DIME_MTR_PT] >= 500)
+					if (nMotorEncoder[DIME_MTR_PT] > 400)
 						motor[DIME_MTR_PT] = 0;
 				}
 
