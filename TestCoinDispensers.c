@@ -1,26 +1,5 @@
 #include "EV3Servo-lib-UW.c"
 
-const int HOPPER_PORT = 0, HOPPER_SPEED = 45, HOPPER_REVERSE_SPEED = 75;
-
-void runHopper(int time)
-{
-	motor[HOPPER_PORT] = -HOPPER_SPEED;
-
-	time1[T1] = 0;
-	while (time1[T1] < time)
-	{
-		nMotorEncoder[HOPPER_PORT] = 0;
-		delay(500);
-		displayBigTextLine(0, "%d", nMotorEncoder[HOPPER_PORT]);
-		if (nMotorEncoder[HOPPER_PORT] > -360 / HOPPER_SPEED)
-		{
-			motor[HOPPER_PORT] = HOPPER_REVERSE_SPEED;
-			delay(250);
-			motor[HOPPER_PORT] = -HOPPER_SPEED;
-		}
-	}
-}
-
 const int CLR_SENS_PT = S4, CLR_SENS_THRESHOLD = 20;
 
 bool coinDispensed(int time)
@@ -216,7 +195,6 @@ task main()
 
 			displayBigTextLine(4, "  < >  %s", coinType[typeIndex]);
 			displayBigTextLine(9, "       %d", number);
-
 
 
 			delay(100);

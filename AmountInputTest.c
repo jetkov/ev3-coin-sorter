@@ -1,13 +1,13 @@
 task main()
 {
 	displayBigTextLine(0, "Dispense: ");
-	displayBigTextLine(8,  "   ^");
-	displayBigTextLine(11, "   v");
+	displayBigTextLine(8,  "    ^");
+	displayBigTextLine(9, "  $%02d.%02d", 0, 0);
+	displayBigTextLine(11, "    v");
 
 	string coinType[5] = {"Nickel", "Dime", "Quarter", "Loonie", "Toonie"};
-	short placeHolder = 0;
+	short placeHolder = 1;
 	int dollars = 0, cents = 0;
-	const int MAX_NUM = 99;
 
 	while (getButtonPress(buttonBack) == 0)
 	{
@@ -19,21 +19,21 @@ task main()
       {
         while (getButtonPress(buttonRight)) {}
         placeHolder = 0;
-        displayBigTextLine(8,  "     ^");
-        displayBigTextLine(11, "     v");
+        displayBigTextLine(8,  "       ^");
+        displayBigTextLine(11, "       v");
       }
-      else if (getButtonPress(buttonLeft) && typeIndex > 0)
+      else if (getButtonPress(buttonLeft))
       {
         while (getButtonPress(buttonLeft)) {}
         placeHolder = 1;
-        displayBigTextLine(8,  "   ^");
-        displayBigTextLine(11, "   v");
+        displayBigTextLine(8,  "    ^");
+        displayBigTextLine(11, "    v");
       }
       else if (getButtonPress(buttonUp))
       {
         while (getButtonPress(buttonUp)) {}
         if (placeHolder == 0 && cents < 100)
-          cents++;
+          cents += 5;
         if (placeHolder == 1 && dollars < 100)
           dollars++;
       }
@@ -41,19 +41,18 @@ task main()
       {
         while (getButtonPress(buttonDown)) {}
         if (placeHolder == 0 && cents > 0)
-          cents--;
+          cents -= 5;
         if (placeHolder == 1 && dollars > 0)
           dollars--;
       }
 
-      displayBigTextLine(9, "  $%d.%d", dollars, cents);
+      displayBigTextLine(9, "  $%02d.%02d", dollars, cents);
 
       delay(100);
 		}
 
-		displayBigTextLine(14, "%s: %d", coinType[typeIndex], number);
+		displayBigTextLine(9, "  $%02d.%02d", 0, 0);
 
-		delay(1000);
 	}
 
 }
