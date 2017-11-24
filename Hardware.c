@@ -26,6 +26,7 @@ void runHopper(int time)
         motor[HOP_PORT] = HOP_REVERSE_SPEED;
         delay(HOP_REVERSE_TIME);
         motor[HOP_PORT] = -HOP_SPEED;
+        time1[HOP_TIMER1] = 0;
       }
     }
 
