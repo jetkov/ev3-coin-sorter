@@ -1,8 +1,8 @@
-/*****************************
+/****************************
 ******** USER INPUT *********
 *****************************/
 
-void getInputAmounts(int & dollars, int & cents)
+int getInputAmounts() // returns cents
 {
   displayBigTextLine(0, "Dispense: ");
   displayBigTextLine(8,  "    ^");
@@ -11,6 +11,8 @@ void getInputAmounts(int & dollars, int & cents)
 
   string coinType[5] = {"Nickel", "Dime", "Quarter", "Loonie", "Toonie"};
   short placeHolder = 1;
+
+  int dollars = 0, cents = 0;
 
   while (getButtonPress(buttonEnter) == 0)
   {
@@ -53,63 +55,54 @@ void getInputAmounts(int & dollars, int & cents)
   }
 
   displayBigTextLine(9, "  $%02d.%02d", 0, 0);
+
+  return 100 * dollars + cents;
 }
 
 /*****************************
-******** MONEY MATH *********
-*****************************/
+******** MONEY MATH **********
+******************************/
 
-float round (float fnum)
+// this function assumes that the function recieves the value of change * 100
+// ex: 1 dollar of change should be change = 100
+void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters, int & nLoonies, int & nToonies, bool & yNickels, bool & yDimes, bool & yQuarters, bool & yLoonies, bool & yToonies)
 {
-  float fTemp = fnum;
-  const float TOL = 0.001;
+	if (change >= 200 && yToonies)
+	{
+		nToonies = change / 200;
 
-  if (fmod (fnum, 0.05) > TOL)
-  fTemp = fnum - fmod(fnum, 0.05) + 0.05;
+		change -= nToonies * 200;
+	}
 
-  return fTemp;
+	if (change >= 100 && yLoonies)
+	{
+		nLoonies = change / 100;
+
+		change -= nLoonies * 100;
+	}
+
+	if (change >= 25 && yQuarters)
+	{
+		nQuarters = change / 25;
+
+		change -= nQuarters * 25;
+	}
+
+	if (change >= 10 && yDimes)
+	{
+		nDimes = change / 10;
+
+		change -= nDimes * 10;
+	}
+
+	if (change >= 5 && yNickels)
+	{
+		nNickels = change / 5;
+
+		change -= nNickels * 5;
+	}
 }
 
-void coinsToDispense (float change, int coins[], bool coinsAvailable[])
-{
-  change = round(change);
-
-  if (change >= 2 && coinsAvailable[TOONIES])
-  {
-    coins[TOONIES] = int (change / 2);
-
-    change -= coins[TOONIES] * 2;
-    change = round(change);
-  }
-
-  if (change >= 1 && coinsAvailable[LOONIES])
-  {
-    coins[LOONIES] = int (change);
-
-    change -= coins[LOONIES];
-    change = round(change);
-  }
-
-  if (change >= 0.25 && coinsAvailable[QUARTERS])
-  {
-    coins[QUARTERS] = int (change / 0.25);
-
-    change -= coins[QUARTERS] * 0.25;
-    change = round(change);
-  }
-
-  if (change >= 0.1 && coinsAvailable[DIMES]);
-  {
-    coins[DIMES] = int (change / 0.1);
-
-    change -= coins[DIMES] * 0.1;
-    change = round(change);
-  }
-
-  if (change >= 0.05 && coinsAvailable[NICKELS])
-  {
-    coins[NICKELS] = int (change / 0.05);
-
-    change -= coins[NICKELS] * 0.05;
-  }
-}
+/*****************************
+** COIN DISPENSER INTERFACE **
+******************************/

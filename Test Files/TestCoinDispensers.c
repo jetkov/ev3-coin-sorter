@@ -1,6 +1,6 @@
 #include "EV3Servo-lib-UW.c"
 
-const int CLR_SENS_PT = S4, CLR_SENS_THRESHOLD = 20;
+const int CLR_SENS_PT = S4, CLR_SENS_THRESHOLD = 13;
 
 bool coinDispensed(int time)
 {
@@ -18,7 +18,7 @@ bool coinDispensed(int time)
 	return coinDetected;
 }
 
-const int SERVO_CTRLR_PT = S1;
+const int SERVO_CTRLR_PT = S3;
 
 const int DIME_MTR_PT = motorB, DIME_MTR_SPD = 10, DIME_DISPENSE_TIME = 5000;
 
@@ -26,7 +26,7 @@ const int NICKL_QRTR_SVO_PT = 1, NICKL_QRTR_OUT_POS = 5, NICKL_POS = 70, QRTR_PO
 const int LNIE_TNIE_SVO_PT = 2, LNIE_TNIE_OUT_POS = 24, LNIE_POS = -46, TNIE_POS = 95;
 const int SERVO_GETCOIN_DELAY = 600; // ms
 
-const int COIN_SENSE_TIME = 1000;
+const int COIN_SENSE_TIME = 1500;
 
 void homeServos()
 {
@@ -195,7 +195,6 @@ task main()
 
 			displayBigTextLine(4, "  < >  %s", coinType[typeIndex]);
 			displayBigTextLine(9, "       %d", number);
-
 
 			delay(100);
 
