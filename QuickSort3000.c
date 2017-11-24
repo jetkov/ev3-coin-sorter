@@ -13,6 +13,9 @@ task main()
     int nNickels = -1, nDimes = -1, nQuarters = -1, nLoonies = -1, nToonies = -1;
     bool yNickels = true, yDimes = true, yQuarters = true, yLoonies = true, yToonies = true;
 
+    coinsToDispense(change, nNickels, nDimes, nQuarters, nLoonies, nToonies,
+    							  yNickels, yDimes, yQuarters, yLoonies, yToonies);
+
     while (nNickels != 0 && nDimes != 0 && nQuarters != 0 && nLoonies != 0 && nToonies != 0)
   	{
 	    nNickels = getCoins(0, nNickels);
