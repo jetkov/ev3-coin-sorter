@@ -5,7 +5,7 @@
 *****************************/
 
 const int HOP_TIMER1 = T1, HOP_TIMER2 = T2, HOP_PORT = motorD;
-const int HOP_SPEED = 25, HOP_REVERSE_SPEED = 75, HOP_REVERSE_TIME = 500, HOP_REVERSE_INTERVAL = 5000;
+const int HOP_SPEED = 25, HOP_REVERSE_SPEED = 75, HOP_REVERSE_TIME = 500, HOP_REVERSE_INTERVAL = 4500;
 
 void runHopper(int time)
 {
