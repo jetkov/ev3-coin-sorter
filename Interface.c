@@ -13,7 +13,7 @@ int getInputAmounts() // returns cents
   int presetValue[5] = {0, 125, 340, 150, 420};
   int presetIndex = 0;
 
-  short placeHolder = 1;
+  short placeHolder = 0;
 
   int dollars = 0, cents = 0;
 

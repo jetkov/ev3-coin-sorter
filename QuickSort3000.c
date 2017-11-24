@@ -14,11 +14,17 @@ task main()
     int nNickelsR = 0, nDimesR = 0, nQuartersR = 0, nLooniesR = 0, nTooniesR = 0;
     bool yNickels = true, yDimes = true, yQuarters = true, yLoonies = true, yToonies = true;
 
-    while (change > 0)
+    while (change > 0 && (yNickels || yDimes || yQuarters || yLoonies || yToonies))
   	{
   		coinsToDispense(change, nNickels, nDimes, nQuarters, nLoonies, nToonies,
     						  	  yNickels, yDimes, yQuarters, yLoonies, yToonies);
 
+    	eraseDisplay();
+
+    	displayBigTextLine(5, " Attempting:");
+    	displayBigTextLine(7, "    $%02.2f", change / 100.0);
+
+    	displayTextLine(14, "Attempting to Dispense: ");
     	displayTextLine(15, "%dN %dD %dQ %dL %dT", nNickels, nDimes, nQuarters, nLoonies, nToonies);
 
     	delay(2000);
@@ -39,7 +45,22 @@ task main()
 
 	    change = change - (nNickelsR * 5 + nDimesR * 10 + nQuartersR * 25 + nLooniesR * 100 + nTooniesR * 200);
 
-	    displayTextLine(14, "%dN %dD %dQ %dL %dT", yNickels, yDimes, yQuarters, yLoonies, yToonies);
+	    if (!(yNickels || yDimes || yQuarters || yLoonies || yToonies))
+		  {
+		  	eraseDisplay();
+		  	displayBigTextLine(5, " Sorry. Not");
+		  	displayBigTextLine(7, " enough coins!");
+			}
+
+	    if (change > 0)
+	    {
+	    	displayTextLine(7, "Not enough coins.");
+    		displayTextLine(8, "Trying next closest amount.");
+	  	}
+
+	    displayTextLine(12, "Available (0/false, 1/true): ");
+	    displayTextLine(13, "%dN %dD %dQ %dL %dT", yNickels, yDimes, yQuarters, yLoonies, yToonies);
+	    displayTextLine(14, "Number Dispensed: ");
 	    displayTextLine(15, "%dN %dD %dQ %dL %dT CHANGE LEFT: %d", nNickelsR, nDimesR, nQuartersR, nLooniesR, nTooniesR, change);
 
 	    delay(2000);
