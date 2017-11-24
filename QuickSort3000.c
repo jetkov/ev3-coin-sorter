@@ -11,26 +11,37 @@ task main()
     int change = getInputAmounts();
 
     int nNickels = -1, nDimes = -1, nQuarters = -1, nLoonies = -1, nToonies = -1;
+    int nNickelsR = 0, nDimesR = 0, nQuartersR = 0, nLooniesR = 0, nTooniesR = 0;
     bool yNickels = true, yDimes = true, yQuarters = true, yLoonies = true, yToonies = true;
 
-    coinsToDispense(change, nNickels, nDimes, nQuarters, nLoonies, nToonies,
-    							  yNickels, yDimes, yQuarters, yLoonies, yToonies);
-
-    while (nNickels != 0 && nDimes != 0 && nQuarters != 0 && nLoonies != 0 && nToonies != 0)
+    while (change > 0)
   	{
-	    nNickels = getCoins(0, nNickels);
-	    nDimes = getCoins(1, nDimes);
-	    nQuarters = getCoins(2, nQuarters);
-	    nLoonies = getCoins(3, nLoonies);
-	    nToonies = getCoins(4, nToonies);
+  		coinsToDispense(change, nNickels, nDimes, nQuarters, nLoonies, nToonies,
+    						  	  yNickels, yDimes, yQuarters, yLoonies, yToonies);
 
-	    yNickels = (bool) nNickels;
-	    yDimes = (bool) nDimes;
-	    yQuarters = (bool) nQuarters;
-	    yLoonies = (bool) nLoonies;
-	    yToonies = (bool) nToonies;
+    	displayTextLine(15, "%dN %dD %dQ %dL %dT", nNickels, nDimes, nQuarters, nLoonies, nToonies);
 
-	    change = nNickels * 5 + nDimes * 10 + nQuarters * 25 + nLoonies * 100 + nToonies * 200;
+    	// Number of each coin output stored in nCoin
+	    nNickelsR = getCoins(0, nNickels);
+	    nDimesR = getCoins(1, nDimes);
+	    nQuartersR = getCoins(2, nQuarters);
+	    nLooniesR = getCoins(3, nLoonies);
+	    nTooniesR = getCoins(4, nToonies);
+
+	    // Comares wanted outout to what actually got
+	    yNickels = nNickelsR == nNickels;
+	    yDimes = nDimesR == nDimes;
+	    yQuarters = nQuartersR == nQuarters;
+	    yLoonies = nLooniesR == nLoonies;
+	    yToonies = nTooniesR == nToonies;
+
+	    change = change - (nNickelsR * 5 + nDimesR * 10 + nQuartersR * 25 + nLooniesR * 100 + nTooniesR * 200);
+
+	    displayTextLine(14, "%dN %dD %dQ %dL %dT", yNickels, yDimes, yQuarters, yLoonies, yToonies);
+	    displayTextLine(15, "%dN %dD %dQ %dL %dT CHANGE LEFT: %d", nNickelsR, nDimesR, nQuartersR, nLooniesR, nTooniesR, change);
+
+	    delay(1000);
+
 	 	}
 
   }

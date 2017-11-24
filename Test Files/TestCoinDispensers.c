@@ -61,21 +61,27 @@ int getCoins(int coinType, int number)
 
 			while (count < number && dispensed)
 			{
-				motor[DIME_MTR_PT] = DIME_MTR_SPD;
+				motor[DIME_MTR_PT] = -DIME_MTR_SPD;
 
 				nMotorEncoder[DIME_MTR_PT] = 0;
 
 			  dispensed = false;
 
 				time1[T3] = 0;
-				while(time1[T3] < DIME_DISPENSE_TIME && !dispensed)
+				while(time1[T3] < DIME_DISPENSE_TIME)
 				{
 					displayBigTextLine(0, "Refl: %d Time: %d", SensorValue[CLR_SENS_PT], time1[T3] / 1000);
 					if (SensorValue[CLR_SENS_PT] > CLR_SENS_THRESHOLD)
+					{
 						dispensed = true;
-					delay(25);
+						displayBigTextLine(14, "Detected!");
+						delay(750);
+						displayBigTextLine(14, "");
+					}
 
-					if (nMotorEncoder[DIME_MTR_PT] > 400)
+				  delay(25);
+
+					if (nMotorEncoder[DIME_MTR_PT] < -370)
 						motor[DIME_MTR_PT] = 0;
 				}
 

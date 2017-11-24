@@ -67,6 +67,8 @@ int getInputAmounts() // returns cents
 // ex: 1 dollar of change should be change = 100
 void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters, int & nLoonies, int & nToonies, bool & yNickels, bool & yDimes, bool & yQuarters, bool & yLoonies, bool & yToonies)
 {
+	nNickels = nDimes = nQuarters = nLoonies = nToonies = 0;
+
 	if (change >= 200 && yToonies)
 	{
 		nToonies = change / 200;
