@@ -5,11 +5,14 @@
 int getInputAmounts() // returns cents
 {
   displayBigTextLine(0, "Dispense: ");
-  displayBigTextLine(8,  "    ^");
-  displayBigTextLine(9, "  $%02d.%02d", 0, 0);
-  displayBigTextLine(11, "    v");
+  displayBigTextLine(7,  "  ^");
+  displayBigTextLine(8, "$%02d.%02d  Preset", 0, 0);
+  displayBigTextLine(10, "  v");
 
-  string coinType[5] = {"Nickel", "Dime", "Quarter", "Loonie", "Toonie"};
+  string preset[5] = {"Preset", "Coffee", "Latte", "Donut", "Transit"};
+  int presetValue[5] = {0, 125, 340, 150, 420};
+  int presetIndex = 0;
+
   short placeHolder = 1;
 
   int dollars = 0, cents = 0;
@@ -21,40 +24,66 @@ int getInputAmounts() // returns cents
     if (getButtonPress(buttonRight))
     {
       while (getButtonPress(buttonRight)) {}
-      placeHolder = 0;
-      displayBigTextLine(8,  "       ^");
-      displayBigTextLine(11, "       v");
+      if (placeHolder < 2)
+      	placeHolder++;
     }
     else if (getButtonPress(buttonLeft))
     {
       while (getButtonPress(buttonLeft)) {}
-      placeHolder = 1;
-      displayBigTextLine(8,  "    ^");
-      displayBigTextLine(11, "    v");
+      if (placeHolder > 0)
+      	placeHolder--;
     }
     else if (getButtonPress(buttonUp))
     {
-      while (getButtonPress(buttonUp)) {}
-      if (placeHolder == 0 && cents < 100)
-      cents += 5;
-      if (placeHolder == 1 && dollars < 100)
-      dollars++;
+    	while (getButtonPress(buttonUp)) {}
+    	if (placeHolder == 0 && dollars < 100)
+      	dollars++;
+      if (placeHolder == 1 && cents < 100)
+      	cents += 5;
+     	if (placeHolder == 2 && presetIndex < 4)
+     		presetIndex++;
+
+
     }
     else if (getButtonPress(buttonDown))
     {
       while (getButtonPress(buttonDown)) {}
-      if (placeHolder == 0 && cents > 0)
-      cents -= 5;
-      if (placeHolder == 1 && dollars > 0)
-      dollars--;
+      if (placeHolder == 0 && dollars > 0)
+      	dollars--;
+      if (placeHolder == 1 && cents > 0)
+      	cents -= 5;
+     	if (placeHolder == 2 && presetIndex > 0)
+     		presetIndex--;
     }
 
-    displayBigTextLine(9, "  $%02d.%02d", dollars, cents);
+    switch(placeHolder)
+    {
+      case 0:
+        displayBigTextLine(7,  "  ^");
+  			displayBigTextLine(10, "  v");
+  			break;
+  	  case 1:
+  	    displayBigTextLine(7,  "     ^");
+  			displayBigTextLine(10, "     v");
+  			break;
+  		case 2:
+  		  displayBigTextLine(7,  "          ^");
+  			displayBigTextLine(10, "          v");
+  			break;
+    }
+
+    if (presetIndex > 0)
+    {
+    	dollars = presetValue[presetIndex] / 100;
+    	cents = presetValue[presetIndex] % 100;
+  	}
+
+    displayBigTextLine(8, "$%02d.%02d  %s", dollars, cents, preset[presetIndex]);
 
     delay(100);
   }
 
-  displayBigTextLine(9, "  $%02d.%02d", 0, 0);
+  displayBigTextLine(8, "$%02d.%02d  Preset", 0, 0);
 
   return 100 * dollars + cents;
 }
