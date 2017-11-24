@@ -27,7 +27,7 @@ task main()
     	displayTextLine(14, "Attempting to Dispense: ");
     	displayTextLine(15, "%dN %dD %dQ %dL %dT", nNickels, nDimes, nQuarters, nLoonies, nToonies);
 
-    	delay(2000);
+    	delay(1000);
 
     	// Number of each coin output stored in nCoin
 	    nNickelsR = getCoins(0, nNickels);
@@ -50,6 +50,8 @@ task main()
 		  	eraseDisplay();
 		  	displayBigTextLine(5, " Sorry. Not");
 		  	displayBigTextLine(7, " enough coins!");
+		  	delay(1000);
+		  	eraseDisplay();
 			}
 
 	    if (change > 0)
@@ -63,7 +65,7 @@ task main()
 	    displayTextLine(14, "Number Dispensed: ");
 	    displayTextLine(15, "%dN %dD %dQ %dL %dT CHANGE LEFT: %d", nNickelsR, nDimesR, nQuartersR, nLooniesR, nTooniesR, change);
 
-	    delay(2000);
+	    delay(1000);
 
 	 	}
 

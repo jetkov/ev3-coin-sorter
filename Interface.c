@@ -9,8 +9,8 @@ int getInputAmounts() // returns cents
   displayBigTextLine(8, "$%02d.%02d  Preset", 0, 0);
   displayBigTextLine(10, "  v");
 
-  string preset[5] = {"Preset", "Coffee", "Latte", "Donut", "Transit"};
-  int presetValue[5] = {0, 125, 340, 150, 420};
+  string preset[5] = {"Preset", "Coffee", "Latte", "Donut", "Max"};
+  int presetValue[5] = {0, 125, 340, 150, 9999};
   int presetIndex = 0;
 
   short placeHolder = 0;
