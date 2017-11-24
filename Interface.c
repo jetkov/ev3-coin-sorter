@@ -103,6 +103,39 @@ void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters,
 
 		change -= nNickels * 5;
 	}
+
+	if (change > 0)
+	{
+		change += 5;
+		nDimes += change / 10;
+
+		change -= (change / 10) * 10;
+	}
+
+	if (change > 0)
+	{
+		change += 15;
+		nQuarters += change / 25;
+
+		change -= (change / 25) * 25;
+	}
+
+	if (change > 0)
+	{
+		change += 75;
+		nLoonies += change / 100;
+
+		change -= (change / 100) * 100;
+	}
+
+	if (change > 0)
+	{
+		change += 100;
+		nToonies += change / 200;
+
+		change -= (change / 200) * 200;
+	}
+
 }
 
 /*****************************
