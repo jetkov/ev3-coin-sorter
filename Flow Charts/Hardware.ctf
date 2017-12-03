@@ -1,0 +1,33 @@
+AutoHopper function called with specified runtime;
+Reset hopper timers;
+while (Hopper timer <  sepcified runtime)
+{
+  Run the hopper motor;
+
+  while (Reverse interval timer < Reverse interval)
+  {
+    if (Hopper speed < threshold)
+    {
+      Reverse hopper for short duration;
+      Run hopper forwards again;
+      Reset the main hopper timer
+    }
+  }
+
+  Reset hopper reverse interval timer;
+  Reverse the hopper for short duration;
+}
+
+Stop the hopper motor;
+
+
+
+AutoHopper task started
+{
+	while (Program isn't ended by user)
+	{
+		while (Ultrasonic reading < threshold)
+		{}
+
+		Call the runHopper function;
+	}
