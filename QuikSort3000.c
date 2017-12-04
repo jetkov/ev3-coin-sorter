@@ -1,14 +1,22 @@
+// QuickSort 3000
+// The workings behind the innovative coin sorter and dispenser robot.
+
+// References Hardware.c and Interface.c
+
 #include "Interface.c"
 #include "Hardware.c"
 
 task main()
 {
+	// Start the automatic hopper intake system to run in the background
 	startTask(autoHopper);
+	// Home the Tetix servos
 	homeServos();
 
+	// Main program loop
   while (getButtonPress(buttonBack) == 0)
   {
-    int change = getInputAmounts();
+    int change = getInputAmounts(); // Gets the user to request an amount of change 
 
     int nNickels = -1, nDimes = -1, nQuarters = -1, nLoonies = -1, nToonies = -1;
     int nNickelsR = 0, nDimesR = 0, nQuartersR = 0, nLooniesR = 0, nTooniesR = 0;
