@@ -1,0 +1,23 @@
+task main()
+{
+  Start the automatic hopper intake system to run in the background;
+  Home the Tetrix servos;
+
+  while (Back button isn't pressed)
+  {
+
+    while (change > 0 and coins are available)
+  	{
+
+			Calculate coin quantities to dispense;
+
+      Attempt to dispense coins;
+
+	    Compare wanted output to what actually was dispensed;
+
+      Calculate the new remaining change value to dispense;
+
+	 	}
+
+  }
+}

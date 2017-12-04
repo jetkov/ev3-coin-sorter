@@ -31,3 +31,80 @@ AutoHopper task started
 
 		Call the runHopper function;
 	}
+}
+
+
+
+
+coinDispensed(int time)
+{
+  while(time < allocated sensing time and coin has not been detected)
+  {
+    if (Colour Sensor Value > Threshold)
+    {
+      Status set to coin detected.
+    }
+  }
+
+  Return the detection status;
+}
+
+
+
+Home Servos()
+{
+  Set nickel and quarter servo position;
+  Set loonie and toonie servo position;
+  Done;
+}
+
+
+
+
+int getCoins(int coinType, int number)
+{
+  switch (coinType)
+  {
+
+    case Nickels:
+    while (count < number && dispensed)
+    {
+      Attempt to dispense nickels;
+      Increment count;
+    }
+    break;
+
+    case Dimes:
+    while (count < number && dispensed)
+    {
+      Attempt to dispense dimes;
+      Increment count;
+    }
+
+    break;
+
+    case Quarters:
+    while (count < number && dispensed)
+    {
+      Attempt to dispense quarters;
+      Increment count;
+    }
+    break;
+
+    case Loonies:
+    while (count < number && dispensed)
+    {
+      Attempt to dispense loonies;
+      Increment count;
+    }
+    break;
+
+    case Toonies:
+    while (count < number && dispensed)
+    {
+      Attempt to dispense toonies;
+      Increment count;
+    }
+    break;
+  }
+}
