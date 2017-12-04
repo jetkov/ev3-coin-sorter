@@ -92,79 +92,81 @@ int getInputAmounts() // returns cents
 ******** MONEY MATH **********
 ******************************/
 
-// this function assumes that the function recieves the value of change * 100
-// ex: 1 dollar of change should be change = 100
-void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters, int & nLoonies, int & nToonies, bool & yNickels, bool & yDimes, bool & yQuarters, bool & yLoonies, bool & yToonies)
+const int NICKEL_VAL = 5, DIME_VAL = 10, QUARTER_VAL = 25, LOONIE_VAL = 100, TOONIE_VAL = 200;
+
+int checkCoin(int & change, int coinValue)
+{
+	int nCoin = change / coinValue;
+	change %= coinValue;
+
+	return nCoin;
+}
+
+// This function assumes that the function recieves the value of change in cents, as well as in increments of 5 only
+void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters, int & nLoonies, int & nToonies, bool & isNickels, bool & isDimes, bool & isQuarters, bool & isLoonies, bool & isToonies)
 {
 	nNickels = nDimes = nQuarters = nLoonies = nToonies = 0;
 
-	if (change >= 200 && yToonies)
-	{
-		nToonies = change / 200;
+	if(isToonies)
+		nToonies = checkCoin(change, TOONIE_VAL);
 
-		change -= nToonies * 200;
+	if(isLoonies)
+		nLoonies = checkCoin(change, LOONIE_VAL);
+
+	if(isQuarters)
+		nQuarters = checkCoin(change, QUARTER_VAL);
+
+	if(isDimes)
+		nDimes = checkCoin(change, DIME_VAL);
+
+	if(isNickels)
+		nNickels = checkCoin(change, NICKEL_VAL);
+
+	else if (isDimes && change > 0)
+	{
+		nDimes++;
+		change -= DIME_VAL;
 	}
 
-	if (change >= 100 && yLoonies)
+	else if (isQuarters && change > 0)
 	{
-		nLoonies = change / 100;
-
-		change -= nLoonies * 100;
+		nQuarters++;
+		change -= QUARTER_VAL;
 	}
 
-	if (change >= 25 && yQuarters)
+	else if (isLoonies && change > 0)
 	{
-		nQuarters = change / 25;
-
-		change -= nQuarters * 25;
+		nLoonies++;
+		change -= LOONIE_VAL;
 	}
 
-	if (change >= 10 && yDimes)
+	else if (isToonies && change > 0)
 	{
-		nDimes = change / 10;
-
-		change -= nDimes * 10;
+		nToonies++;
+		change -= TOONIE_VAL;
 	}
 
-	if (change >= 5 && yNickels)
+	//Deals with special case were cents equals 95 and dollars equals anything
+	if (isLoonies)
 	{
-		nNickels = change / 5;
-
-		change -= nNickels * 5;
+		if(nDimes == 10)
+		{
+			nLoonies++;
+			nDimes = 0;
+		}
+		if(nQuarters == 4)
+		{
+			nLoonies++;
+			nQuarters = 0;
+		}
 	}
 
-	if (change > 0)
+	//Deals with special case were cents equals 95 and dollars equal odd number
+	if (isToonies && nLoonies == 2)
 	{
-		change += 5;
-		nDimes += change / 10;
-
-		change -= (change / 10) * 10;
+		nToonies++;
+		nLoonies = 0;
 	}
-
-	if (change > 0)
-	{
-		change += 15;
-		nQuarters += change / 25;
-
-		change -= (change / 25) * 25;
-	}
-
-	if (change > 0)
-	{
-		change += 75;
-		nLoonies += change / 100;
-
-		change -= (change / 100) * 100;
-	}
-
-	if (change > 0)
-	{
-		change += 100;
-		nToonies += change / 200;
-
-		change -= (change / 200) * 200;
-	}
-
 }
 
 /*****************************
