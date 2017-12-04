@@ -1,0 +1,52 @@
+Get Input Amounts Function{
+  Set up the number entry UI;
+
+  Set up the example presets;
+
+  // This loop allows the user to move around a cursor that lets them
+  // increment or decrement dollar values, cent values, or choose presets options.
+  while (Enter button is not pressed)
+  {
+    while (No buttons are pressed) {}
+
+    if (Right button is pressed)
+    {
+      while (Right button is pressed) {}
+      Increment cursor position;
+    }
+
+    else if (Left button is pressed)
+    {
+      while (Left button is pressed) {}
+      Decrement cursor position;
+    }
+
+    else if (Up button is pressed)
+    {
+    	while (Up button is pressed) {}
+    	Increment selected value;
+    }
+
+    else if (Down button is pressed)
+    {
+      while (Down button is pressed) {}
+      Decrement selected value;
+    }
+
+    switch (Selected Cursor Position)
+    {
+      Render corresponding cursor at new position;
+    }
+
+    if (A preset is selected)
+    {
+    	Set the change value to the preset;
+  	}
+
+    Render change value and preset text;
+  }
+
+  Reset the change value and preset text;
+
+  return Change value in cents;
+}
