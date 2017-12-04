@@ -7,71 +7,58 @@ void coinsToDispense (int change, int & nNickels, int & nDimes, int & nQuarters,
 {
 	nNickels = nDimes = nQuarters = nLoonies = nToonies = 0;
 
-	if (change >= 200 && yToonies)
+	if (yToonies)
 	{
 		nToonies = change / 200;
-
-		change -= nToonies * 200;
+		change %= 200;
 	}
-
-	if (change >= 100 && yLoonies)
+	
+	if (yLoonies)
 	{
 		nLoonies = change / 100;
-
-		change -= nLoonies * 100;
+		change %= 100;
 	}
-
-	if (change >= 25 && yQuarters)
+	
+	if (yQuarters)
 	{
 		nQuarters = change / 25;
-
-		change -= nQuarters * 25;
+		change %= 25;
 	}
-
-	if (change >= 10 && yDimes)
+	
+	if (yDimes)
 	{
 		nDimes = change / 10;
-
-		change -= nDimes * 10;
+		change %= 10;
 	}
-
-	if (change >= 5 && yNickels)
+	
+	if (yNickels)
 	{
 		nNickels = change / 5;
-
-		change -= nNickels * 5;
-	}
-
-	if (change > 0)
+		change %= 5;
+	} 
+	
+	else if (yDimes && change > 0)
 	{
-		change += 5;
-		nDimes += change / 10;
-
-		change -= (change / 10) * 10;
+		nDimes++;
+		change -= 10;
 	}
-
-	if (change > 0)
+		
+	else if (yQuarters && change > 0)
 	{
-		change += 15;
-		nQuarters += change / 25;
-
-		change -= (change / 25) * 25;
+		nQuarters++;
+		change -= 25;
 	}
-
-	if (change > 0)
+		
+	else if (yLoonies && change > 0)
 	{
-		change += 75;
-		nLoonies += change / 100;
-
-		change -= (change / 100) * 100;
+		nLoonies++;
+		change -= 100;
 	}
-
-	if (change > 0)
+	
+	else if (yToonies && change > 0)
 	{
-		change += 100;
-		nToonies += change / 200;
-
-		change -= (change / 200) * 200;
+		nToonies++;
+		change -= 200;
 	}
 
 }
